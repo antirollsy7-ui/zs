@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gülay ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+        }
+
+        .container {
+            z-index: 10;
+            padding: 20px;
+            transition: opacity 1s ease;
+        }
+
+        p {
+            font-size: 1.3rem;
+            color: #4a4a4a;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .instruction {
+            font-size: 0.9rem;
+            color: #d63384;
+            font-weight: bold;
+            opacity: 0.7;
+            position: absolute;
+            bottom: 50px;
+            width: 100%;
+            left: 0;
+        }
+
+        /* Alt alta ve ortalı yeni yazı stili */
+        #final-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem; /* Mobilde sığması için biraz küçültüldü */
+            color: white;
+            opacity: 0;
+            display: none;
+            z-index: 100;
+            transition: opacity 1s ease;
+            line-height: 1.2;
+        }
+
+        #final-text span {
+            display: block; /* Yazıları alt alta dize */
+        }
+
+        .heart-icon {
+            font-size: 3.5rem;
+            margin: 10px 0;
+            color: #ff4d4d;
+        }
+
+        /* Kararma efekti */
+        .black-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            opacity: 0;
+            display: none;
+            z-index: 50;
+            transition: opacity 1.5s ease;
+        }
+    </style>
+</head>
+<body ondblclick="calistir()">
+
+    <div class="black-screen" id="overlay"></div>
+
+    <div class="container" id="main-content">
+        <p>Çok hata yaptım biliyorum. Yine de hayatımın en güzel detayı olduğun için teşekkür ederim.</p>
+        <p><i>İyi ki varsın...</i></p>
+    </div>
+
+    <div class="instruction" id="footer-text">Ekrana Çift Tıkla...</div>
+    
+    <div id="final-text">
+        <span>Gülay</span>
+        <div class="heart-icon">♡</div>
+        <span>Anti</span>
+    </div>
+
+    <script>
+        function calistir() {
+            const overlay = document.getElementById('overlay');
+            const finalText = document.getElementById('final-text');
+            const mainContent = document.getElementById('main-content');
+            const footerText = document.getElementById('footer-text');
+
+            konfetiPatlat();
+
+            // Ekran kararır
+            overlay.style.display = 'block';
+            setTimeout(() => {
+                overlay.style.opacity = '1';
+                mainContent.style.opacity = '0';
+                footerText.style.opacity = '0';
+            }, 10);
+
+            // Yazı gelir (Gülay <kalp> Anti)
+            setTimeout(() => {
+                finalText.style.display = 'block';
+                setTimeout(() => {
+                    finalText.style.opacity = '1';
+                }, 100);
+            }, 1500);
+
+            // Yazı kaybolur ve siyah kalır
+            setTimeout(() => {
+                finalText.style.opacity = '0';
+                setTimeout(() => {
+                    finalText.style.display = 'none';
+                }, 1000);
+            }, 5000); // Yazının ekranda kalma süresini biraz uzattım
+        }
+
+        function konfetiPatlat() {
+            var duration = 2 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+              confetti({
+                particleCount: 5,
+                angle: 60,
+                spread: 70,
+                origin: { x: 0 },
+                colors: ['#ff0000', '#ffffff']
+              });
+              confetti({
+                particleCount: 5,
+                angle: 120,
+                spread: 70,
+                origin: { x: 1 },
+                colors: ['#ff0000', '#ffffff']
+              });
+
+              if (Date.now() < end) {
+                requestAnimationFrame(frame);
+              }
+            }());
+        }
+    </script>
+</body>
+</html>
